@@ -1,28 +1,52 @@
-import React, { useState } from 'react'
-import Rate from '../Rate/Rate'
+import React, { useEffect, useState } from 'react';
+import Rate from '../Rate/Rate';
 
+function MainCard({ data }) {
+  const [rating, setRating] = useState(null);
+  const [thanks, setThanks] = useState(false);
+  const dataEvaluated = thanks ? data[1] : data[0];
 
-function MainCard() {
-  const [svg, setSvg] = useState(<svg width="17" height="16" xmlns="http://www.w3.org/2000/svg"><path d="m9.067.43 1.99 4.031c.112.228.33.386.58.422l4.45.647a.772.772 0 0 1 .427 1.316l-3.22 3.138a.773.773 0 0 0-.222.683l.76 4.431a.772.772 0 0 1-1.12.813l-3.98-2.092a.773.773 0 0 0-.718 0l-3.98 2.092a.772.772 0 0 1-1.119-.813l.76-4.431a.77.77 0 0 0-.222-.683L.233 6.846A.772.772 0 0 1 .661 5.53l4.449-.647a.772.772 0 0 0 .58-.422L7.68.43a.774.774 0 0 1 1.387 0Z" fill="#FC7614"/></svg>)
-  const [title, setTitle] = useState("How did we do")
-  const [description, setDescription] = useState("Please let us know how we did with your support request.All feedback is appreciated to help us improve our offering")
-  const [button, setButton] = useState("Submit")
-  const [rate,setRate]=useState(0)
-  const [thanks,setTanks]= useState(false)
+  useEffect(() => {
+    if (!thanks) {
+      setRating(null);
+    }
+  }, [thanks]);
+
+  const handleClickRate = (event) => {
+    setRating(event.target.textContent);
+    console.log(event.target);
+  };
+
   return (
     <>
-      
-    <div className='wrapper'>
-    
-      <div className='topImage'>{svg}</div>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      {!thanks && <Rate/>}
-      <button>{button}</button>
-    </div>
+      <div
+        className={` max-w-xs bg-gradient-to-b from-dark-blue to-vdark-blue wrapper p-6 rounded-2xl flex flex-col shadow-2xl mx-5 text-prg ${
+          thanks ? 'items-center' : ''
+        }`}
+      >
+        <div className={`topImage ${!thanks ? 'bg-dark-blue shadow-lg rounded-full p-4 w-12' : ''}`}>
+          {dataEvaluated.image}
+        </div>
+        {thanks && (
+          <p className="mt-4 text-orange bg-dark-blue shadow-lg rounded-full px-3 py-2 text-sm">
+            You selected a {rating} out of 5
+          </p>
+        )}
+
+        <h1 className="mt-4 text-white text-2xl font-bold">{dataEvaluated.title}</h1>
+        <p className={`mt-2 text-gray-light  ${thanks ? 'text-center' : ''}`}>{dataEvaluated.description}</p>
+        {!thanks && <Rate handleClick={handleClickRate} selected={rating} />}
+        <button
+          onClick={() => {
+            rating ? setThanks(!thanks) : alert('Please give us a feedback  : ´ (  ');
+          }}
+          className="mt-5 rounded-full bg-orange py-3 text-base text-white uppercase tracking-widest self-stretch hover:bg-white hover:text-orange"
+        >
+          {dataEvaluated.buttonLabel}
+        </button>
+      </div>
     </>
-    
-  )
+  );
 }
 
-export default MainCard
+export default MainCard;
