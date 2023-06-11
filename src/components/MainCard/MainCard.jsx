@@ -3,6 +3,7 @@ import Rate from '../Rate/Rate';
 
 function MainCard({ data }) {
   const [rating, setRating] = useState(null);
+
   const [thanks, setThanks] = useState(false);
   const dataEvaluated = thanks ? data[1] : data[0];
 
@@ -12,9 +13,8 @@ function MainCard({ data }) {
     }
   }, [thanks]);
 
-  const handleClickRate = (event) => {
-    setRating(event.target.textContent);
-    console.log(event.target);
+  const handleClickRate = (element) => {
+    setRating(element);
   };
 
   return (
@@ -38,9 +38,13 @@ function MainCard({ data }) {
         {!thanks && <Rate handleClick={handleClickRate} selected={rating} />}
         <button
           onClick={() => {
-            rating ? setThanks(!thanks) : alert('Please give us a feedback  : ´ (  ');
+            rating && setThanks(!thanks);
           }}
-          className="mt-5 rounded-full bg-orange py-3 text-base text-white uppercase tracking-widest self-stretch hover:bg-white hover:text-orange"
+          className={`${
+            rating
+              ? 'bg-orange text-white  md:hover:bg-white md:hover:text-orange'
+              : 'text-gray-medium bg-dark-blue cursor-default '
+          } mt-5 rounded-full py-3 text-base uppercase tracking-widest self-stretch`}
         >
           {dataEvaluated.buttonLabel}
         </button>
