@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 function Rate({ handleClick, selected }) {
-  console.log(selected);
   return (
     <div className="mt-4   flex justify-between">
       {[1, 2, 3, 4, 5].map((i) => (
