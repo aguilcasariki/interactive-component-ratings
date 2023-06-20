@@ -20,7 +20,7 @@ function MainCard({ data }) {
   return (
     <>
       <div
-        className={` max-w-xs bg-gradient-to-b from-dark-blue to-vdark-blue wrapper p-6 rounded-2xl flex flex-col shadow-2xl mx-5 text-prg ${
+        className={`max-w-xs bg-gradient-to-b from-dark-blue to-vdark-blue wrapper p-6 rounded-2xl flex flex-col shadow-2xl mx-5 text-prg ${
           thanks ? 'items-center' : ''
         }`}
       >

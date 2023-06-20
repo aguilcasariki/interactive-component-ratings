@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-
 function Rate({ handleClick, selected }) {
   return (
     <div className="mt-4   flex justify-between">

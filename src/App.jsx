@@ -74,9 +74,9 @@ let info = [
 
 function App() {
   return (
-    <>
+    <div className="bg-black flex flex-col justify-center items-center h-screen">
       <MainCard data={info} />
-    </>
+    </div>
   );
 }
 
